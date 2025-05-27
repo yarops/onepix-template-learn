@@ -1,0 +1,72 @@
+{
+  "name": "onepix/wordpress-template",
+  "description": "Pack of features for WordPress development",
+  "type": "project",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "OnePix\\WordPress\\": "src/"
+    },
+    "files": [
+      "di.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "OnePix\\WordPress\\": "tests/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Daniel Dubchenko"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=8.1",
+    "onepix/wordpress-components": "0.2.0",
+    "illuminate/container": "^10.48.28",
+    "illuminate/config": "^10.48.28"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.6.22",
+    "yoast/phpunit-polyfills": "^3.1.2",
+    "squizlabs/php_codesniffer": "^3.11.3",
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "wp-coding-standards/wpcs": "^3.1",
+    "rector/rector": "^2.0.9",
+    "vimeo/psalm": "^5.26.1",
+    "humanmade/psalm-plugin-wordpress": "^3.1.2",
+    "onepix/wordpress-stubs": "^6.7.1",
+    "php-stubs/wordpress-tests-stubs": "^6.7.2",
+    "onepix/psr11-container-interface-generic": "^1.0",
+    "wp-cli/wp-cli-bundle": "^2.11"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "scripts": {
+    "phpcs": "bash ./bin/phpcs.sh",
+    "phpcs:full": "bash ./bin/phpcs.sh -full",
+    "phpcs:fix": "bash ./bin/phpcs.sh -fix",
+    "rector:dry": "vendor/bin/rector --dry-run",
+    "rector:fix": "vendor/bin/rector",
+    "psalm": "./vendor/bin/psalm",
+    "psalm:full": "./vendor/bin/psalm --show-info=true",
+    "code:fix": [
+      "@phpcs:fix",
+      "@rector:fix"
+    ],
+    "code:check": [
+      "@phpcs:full",
+      "@rector:dry",
+      "@psalm"
+    ],
+    "make-pot": "./vendor/bin/wp i18n make-pot . --include=templates/*,src/* --slug=wordpress-template",
+    "update-po": "./vendor/bin/wp i18n update-po ./languages/wordpress-template.pot",
+    "make-mo": "./vendor/bin/wp i18n make-mo ./languages",
+    "make-mo-json": "./vendor/bin/wp i18n make-json ./languages --no-purge --pretty-print"
+  }
+}

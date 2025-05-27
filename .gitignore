@@ -1,0 +1,10 @@
+/.env
+/docker-compose.override.yml
+
+/data
+/vendor
+/var
+
+/build
+
+

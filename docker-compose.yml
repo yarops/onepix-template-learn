@@ -1,0 +1,35 @@
+services:
+  php:
+    build:
+      context: docker/php
+      args:
+        PHP_VERSION: $PHP_VERSION
+    container_name: "${DOCKER_PROJECT_NAME}-php"
+    depends_on:
+      - db
+    restart: no
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: test
+      WORDPRESS_DB_PASSWORD: test
+      WORDPRESS_DB_NAME: test
+      WORDPRESS_VERSION: ${WORDPRESS_VERSION}
+      WP_CLI_ALLOW_ROOT: 1
+      TEST_SITE_URL: ${TEST_SITE_URL}
+      TEST_SITE_TITLE: ${TEST_SITE_TITLE}
+      TEST_SITE_ADMIN_USER: ${TEST_SITE_ADMIN_USER}
+      TEST_SITE_ADMIN_EMAIL: ${TEST_SITE_ADMIN_EMAIL}
+    volumes:
+      - .:/var/www/html
+
+  db:
+    image: mariadb:11
+    container_name: "${DOCKER_PROJECT_NAME}-db"
+    restart: no
+    environment:
+      MYSQL_DATABASE: test
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - ./data/db:/var/lib/mysql

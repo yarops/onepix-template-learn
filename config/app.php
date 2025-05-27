@@ -12,6 +12,6 @@ return [
     'version' => '0.1.0',
     'appPath' => $appPath,
     'translationsPath' => $appPath . '/languages',
-    'templatesPath' => $appPath . '/templates/',
+    'templatesPath' => $appPath . '/resources/templates/',
     'isDev' => env('WP_ENV', 'development') === 'development'
 ];
